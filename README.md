@@ -1,45 +1,32 @@
-# Express js + Mongoose + Javascript
+## 🔐 API Features
 
-A minimal backend starter project created with `create-exbackend-app`.
+- 🔒 *JWT Authentication*:
+  - Generate token on login
+  - Protect private routes using JWT
+  - Tokens stored in HttpOnly cookies
 
-## 📦 Stack
-- Express.js
-- TypeScript / JavaScript
-- Prisma / Mongoose
-- dotenv, morgan, cors, cookie-parser, helmet, compression, ExpressMongoSanitize, express-rate-limit, ESLint &  Prettier (default)
+- 📦 *Food Item Management (CRUD)*:
+  - Create a new food item
+  - Get all foods for logged-in user
+  - Update / Delete food (only by owner)
+  - Nearly expired / expired food logic
 
-## 🚀 Quick Start
+- 🧠 *Role-based Access (Optional Enhancement)*:
+  - Admin/User logic via token verification
+
+---
+
+## 🔧 Installation & Setup
+
+### 1. Clone the repo
 
 ```bash
-cd your-project-name
-npm run dev # For development
-# OR
-npm run start  # For server Start(production)
-
-```
-## 🧱 Folder Structure
-
-```
-your-project/
-├── src/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── config/
-│   ├── middleware/
-│   ├── services/
-│   └── app.ts / app.js
-├── .env
-├── .gitignore
-├── .prettierrc
-├── .eslintrc.json
-├── index.ts / index.js
-└── README.md
-```
-
-Created with ❤️ by create-exbackend-app CLI
-### Explanation:
-- **Static Information**: This version is entirely static and has no dynamic variables.
-- **General Instructions**: The instructions are now written for TypeScript and JavaScript but not tied to any dynamic project name or toolset.
-
-You can update this template further by simply replacing `your-project-name` with the actual project name where needed.
+git clone https://github.com/your-username/food-expiry-tracker-server
+| Method | Endpoint     | Description                        | Access    |
+| ------ | ------------ | ---------------------------------- | --------- |
+| GET    | /foods     | Get all foods by user email        | Protected |
+| POST   | /foods     | Add new food                       | Protected |
+| PUT    | /foods/:id | Update a specific food             | Protected |
+| DELETE | /foods/:id | Delete a specific food             | Protected |
+| GET    | /expired   | Get expired or nearly expired food | Protected |
+| POST   | /jwt       | Generate JWT Token                 | Public    |
