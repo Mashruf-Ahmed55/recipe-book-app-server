@@ -199,3 +199,70 @@ export const myRecipes = async (request, response) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const incrementRecipeView = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const { userId } = req.query;
+
+    const recipe = await recipeModel.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    if (userId && userId === recipe.userId.toString()) {
+      return res
+        .status(200)
+        .json({ message: 'Creator view ignored', views: recipe.views });
+    }
+
+    if (userId) {
+      const alreadyViewed = recipe.viewedBy.some(
+        (id) => id.toString() === userId
+      );
+
+      if (!alreadyViewed) {
+        recipe.views += 1;
+        recipe.viewedBy.push(userId);
+        await recipe.save();
+      }
+
+      return res
+        .status(200)
+        .json({ message: 'View updated', views: recipe.views });
+    }
+
+    return res.status(400).json({ message: 'Missing userId or guest flag' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const getRecipeSummaryByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const recipes = await recipeModel.find({ userId });
+
+    const totalRecipes = recipes.length;
+
+    const totalLikes = recipes.reduce(
+      (sum, recipe) => sum + recipe.likesCount,
+      0
+    );
+    const totalViews = recipes.reduce(
+      (sum, recipe) => sum + (recipe.views || 0),
+      0
+    );
+
+    res.status(200).json({
+      totalRecipes,
+      totalLikes,
+      totalViews,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

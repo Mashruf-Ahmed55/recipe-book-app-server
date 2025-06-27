@@ -3,6 +3,8 @@ import {
   createRecipe,
   getAllRecipes,
   getRecipeById,
+  getRecipeSummaryByUser,
+  incrementRecipeView,
   myRecipes,
   recipeDeleteById,
   recipeUpdateById,
@@ -18,5 +20,7 @@ recipeRoute.route('/update-recipes/:id').put(recipeUpdateById);
 recipeRoute.route('/like/:id').patch(toggleLike);
 recipeRoute.route('/delete-recipes/:id').delete(recipeDeleteById);
 recipeRoute.route('/my-recipes/:id').get(myRecipes);
+recipeRoute.get('/recipes/summary/:userId').get(getRecipeSummaryByUser);
+recipeRoute.get('/recipes/:id/view').get(incrementRecipeView);
 
 export default recipeRoute;

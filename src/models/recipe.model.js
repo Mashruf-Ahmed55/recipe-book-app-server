@@ -4,19 +4,15 @@ const recipeSchema = new mongoose.Schema(
   {
     image: {
       type: String,
-      required: true,
     },
     title: {
       type: String,
-      required: true,
     },
     ingredients: {
       type: [String],
-      required: true,
     },
     instructions: {
       type: [String],
-      required: true,
     },
     cuisineType: {
       type: String,
@@ -32,11 +28,9 @@ const recipeSchema = new mongoose.Schema(
         'korean',
         'others',
       ],
-      required: true,
     },
     preparationTime: {
       type: Number,
-      required: true,
     },
     categories: {
       type: [String],
@@ -56,7 +50,6 @@ const recipeSchema = new mongoose.Schema(
         'Quick & Easy',
         'Budget-Friendly',
       ],
-      required: true,
     },
     likesCount: {
       type: Number,
@@ -64,12 +57,20 @@ const recipeSchema = new mongoose.Schema(
     },
     likes: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    ],
+    views: {
+      type: Number,
+      default: 0,
+    },
+    viewedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
       },
     ],
     userId: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
     },
   },
   {
