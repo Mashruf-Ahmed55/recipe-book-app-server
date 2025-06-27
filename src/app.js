@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
-      'https://recipe-booking-app-mashruf-ahmed55.netlify.app',
+      'https://recipe-book-app-client.vercel.app',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
